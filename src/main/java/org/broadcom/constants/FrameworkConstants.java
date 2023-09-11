@@ -20,7 +20,7 @@ public class FrameworkConstants {
 	public static final String localfilepath = "AppData\\Local\\";
 	public static final String productname = "product-usage-collector\\";
 	public static final String buildversion = "1.1.2";
-	public static final String appversion = "app-" + buildversion + "-dev\\";
+	public static final String appversion = "app-" + buildversion + "\\";
 	public static final String fileext = "product-usage-collector.exe";
 	private static final String appPath = location + account + localfilepath + productname + appversion + fileext;
 	private static final int EXPLICIT_WAIT = 40;
