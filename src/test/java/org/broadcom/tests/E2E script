@@ -1,0 +1,100 @@
+package org.broadcom.tests;
+
+import org.broadcom.base.BaseTest;
+import org.broadcom.pages.AddInstancePage;
+import org.broadcom.pages.AddProductsPage;
+import org.broadcom.pages.DashboardPage;
+import org.broadcom.pages.LoginPage;
+import org.testng.annotations.Test;
+
+public class EndToEndTest extends BaseTest {
+
+	@Test(priority = 9, enabled = false)
+	public void EndToEndFullFunctionTest() throws Exception {
+		setUp();
+
+		// Without Filling
+		new LoginPage(dtdriver).navigateTobtnBroadcomAccount().navigateTobtnAutomationAccount();
+		new LoginPage(dtdriver).emailValidation();
+		new LoginPage(dtdriver).passwordValidation();
+
+		// Filling Wrong Credentials
+		new LoginPage(dtdriver).EnterUsername("telemetry@yahoo.com").EnterPassword("Tester#22")
+				.navigateTobtnAutomationAccount();
+		new LoginPage(dtdriver).getCredentialsError();
+
+		// Filling Correct Credentials
+		new LoginPage(dtdriver).EnterUsername("telemetry13@yahoo.com").EnterPassword("Tester#22")
+				.navigateTobtnAutomationAccount();
+
+		new DashboardPage(dtdriver).moveToAddProduct("57");
+		new AddProductsPage(dtdriver).clickOnSearchFld("DX NetOps").clickOnBasicAddProduct().clickOnAddInstance();
+
+		new AddInstancePage(dtdriver).clickOnInstanceUrlFld("").clickOnInstanceFld("")
+				.clickOnBasicConfigureDetails("", "", "").clickOnTestConnection();
+		new AddInstancePage(dtdriver).getInstanceURLMessage();
+		new AddInstancePage(dtdriver).clickOnSaveDetails();
+		new AddInstancePage(dtdriver).getRequired_FieldsMessage();
+		new AddInstancePage(dtdriver).clickOnInstanceUrlFld("http://localhost:5000/basic-auth/productusage-netops")
+				.clickOnTestConnection();
+		new AddInstancePage(dtdriver).getAuthenticationsMessage();
+		new AddInstancePage(dtdriver).clickOnBasicConfigureDetails("admin14", "password14", "password14")
+				.clickOnTestConnection().clickOnSaveDetails();
+		new AddInstancePage(dtdriver).getRequired_FieldsMessage();
+		new AddInstancePage(dtdriver).clickOnInstanceFld("DX NetOps").clickOnSaveDetails();
+		new AddInstancePage(dtdriver).getRequired_FieldsMessage();
+		new AddInstancePage(dtdriver).clickOnEnvironmentAndSelect().clickOnTestConnection().clickOnSaveDetails();
+		new DashboardPage(dtdriver).getAddInstanceMessage();
+		//Bearer
+		new DashboardPage(dtdriver).moveToAddProduct("57").clickOnSearchFld("Continuous Delivery Director")
+				.clickOnBearerAddProduct().clickOnAddInstance()
+				.clickOnInstanceUrlFld("http://localhost:5000/bearer-auth/productusage-cdd")
+				.clickOnInstanceFld("Continuous Delivery Director").clickOnEnvironmentAndSelect()
+				.clickOnBearerConfigureDetails(AddInstancePage.Token).clickOnTestConnection().clickOnSaveDetails();
+		new DashboardPage(dtdriver).getAddInstanceMessage();
+		//API 
+		new DashboardPage(dtdriver).moveToAddProduct("57").clickOnSearchFld("CA Workload Automation DE")
+				.clickOnApiKeyAddProduct().clickOnAddInstance()
+				.clickOnInstanceUrlFld("http://localhost:5000/api_key-auth/productusage-espwa")
+				.clickOnInstanceFld("CA Workload Automation DE").clickOnEnvironmentAndSelect()
+				.EnterApiKeyConfigureDetails("Authorization", "my-valid-api-key").clickOnTestConnection()
+				.clickOnSaveDetails();
+		new DashboardPage(dtdriver).getAddInstanceMessage();
+
+		//Edit API	
+		new DashboardPage(dtdriver).clickOnSearchFld("CA Workload Automation DE").MoveTOApiKeyAddProduct()
+				.clickOnEditIcon().clickOnInstanceUrlFld("http://localhost:5000/api_key-auth/productusage-espwa")
+				.clickOnInstanceFld("CA Workload Automation DE")
+				.EnterApiKeyConfigureDetails("Authorization", "my-valid-api-key").clickOnTestConnection()
+				.clickOnSaveChangesDetails();
+		new DashboardPage(dtdriver).getupdateInstanceMessage();
+		//Delete APi
+		new DashboardPage(dtdriver).clickOnSearchFld("CA Workload Automation DE").MoveTOApiKeyAddProduct()
+				.clickOnDeleteIcon().clickOnConformation();
+		new DashboardPage(dtdriver).getDeleteInstanceMessage();
+		//Delete Bearer
+		new DashboardPage(dtdriver).clickOnSearchFld("Continuous Delivery Director").MoveTOBearerAddProduct()
+				.clickOnDeleteIcon().clickOnConformation();
+		new DashboardPage(dtdriver).getDeleteInstanceMessage();
+		//collect Usages
+
+		new DashboardPage(dtdriver).clickOnCollect().clickOnSendReport();
+		new DashboardPage(dtdriver).getSendReportMessage("Apr - Jun.");
+		// Add same Instance basic Isnstance
+		new DashboardPage(dtdriver).moveToAddProduct("57").clickOnSearchFld("DX NetOps").clickOnBasicAddProduct()
+				.clickOnAddInstance().clickOnInstanceUrlFld("http://localhost:5000/basic-auth/productusage-netops").clickOnInstanceFld("DX NetOps").clickOnEnvironmentAndSelect()
+				.clickOnBasicConfigureDetails("admin14", "password14", "password14").clickOnTestConnection().clickOnSaveDetails();
+		new AddInstancePage(dtdriver).getBasicMessage();
+		new AddInstancePage(dtdriver).clickOnCancel().clickOnGoBackIcon();
+		//Delete Basic
+		new DashboardPage(dtdriver).clickOnSearchFld("DX NetOps").MoveTOBasicAddProduct().clickOnDeleteIcon()
+				.clickOnConformation();
+		new DashboardPage(dtdriver).getDeleteInstanceMessage();
+		//Profile Menu
+		new DashboardPage(dtdriver).clickOnProfileName().clickOnAbout().clickOnIconExit();
+		new DashboardPage(dtdriver).clickOnProfileName().clickOnProfile();
+		new DashboardPage(dtdriver).clickOnProfileName().navigateToSignout();
+
+		killDesktop();
+	}
+}
