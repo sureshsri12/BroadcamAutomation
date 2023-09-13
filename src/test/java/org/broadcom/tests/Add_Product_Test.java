@@ -39,7 +39,7 @@ public class Add_Product_Test extends BaseTest {
 		killDesktop();
 	}
 
-	@Test(priority = 3, enabled = false, dataProvider = "getData", description = "Adding APIKEY Authentication Product")
+	@Test(priority = 3, enabled = true, dataProvider = "getData", description = "Adding APIKEY Authentication Product")
 	public void testcase03(TestData data) throws Exception {
 		setUp();
 		new LoginPage(dtdriver).loginAuthentication(data.getUsername(), data.getPassword())
