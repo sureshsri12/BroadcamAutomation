@@ -18,7 +18,7 @@ public class Add_Product_Test extends BaseTest {
 				.EnvironmentAndSelect(data.getEnvironment())
 				//.AuthenticationAndSelect("Basic Authentication")
 				.clickOnBasicConfigureDetails(data.getEmail(), data.getPwd(), data.getCmpwd()).clickOnTestConnection()
-				.clickOnSaveDetails();
+				.clickOnSaveDetails().clickOnSearchFld(data.getSearch());
 		new DashboardPage(dtdriver).clickOnProfileName().navigateToSignout();
 		killDesktop();
 	}
@@ -34,7 +34,7 @@ public class Add_Product_Test extends BaseTest {
 				.EnvironmentAndSelect(data.getEnvironment())
 				//.AuthenticationAndSelect("Bearer Authentication")
 				.clickOnBearerConfigureDetails(data.getToken())
-				.clickOnTestConnection().clickOnSaveDetails();
+				.clickOnTestConnection().clickOnSaveDetails().clickOnSearchFld(data.getSearch());
 		new DashboardPage(dtdriver).clickOnProfileName().navigateToSignout();
 		killDesktop();
 	}
@@ -50,7 +50,7 @@ public class Add_Product_Test extends BaseTest {
 				.EnvironmentAndSelect(data.getEnvironment())
 				//.AuthenticationAndSelect("APIKey Authentication")
 				.EnterApiKeyConfigureDetails(data.getKey(), data.getValue())
-				.clickOnTestConnection().clickOnSaveDetails();
+				.clickOnTestConnection().clickOnSaveDetails().clickOnSearchFld(data.getSearch());
 		new DashboardPage(dtdriver).clickOnProfileName().navigateToSignout();
 		killDesktop();
 	}
