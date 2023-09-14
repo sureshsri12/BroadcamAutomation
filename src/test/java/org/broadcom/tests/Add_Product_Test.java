@@ -23,7 +23,7 @@ public class Add_Product_Test extends BaseTest {
 		killDesktop();
 	}
 
-	@Test(priority = 2, enabled = false, dataProvider = "getData", description = "Adding Bearer Authentication Product")
+	@Test(priority = 2, enabled = true, dataProvider = "getData", description = "Adding Bearer Authentication Product")
 	public void testcase02(TestData data) throws Exception {
 		setUp();
 		new LoginPage(dtdriver).loginAuthentication(data.getUsername(), data.getPassword())
